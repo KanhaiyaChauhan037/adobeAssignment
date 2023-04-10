@@ -1,6 +1,5 @@
 const Post = require("../models/post");
 
-// Create a new post
 exports.createPost = async (req, res) => {
   try {
     const { user_id, content } = req.body;
@@ -13,7 +12,7 @@ exports.createPost = async (req, res) => {
   }
 };
 
-// Get a post by id
+
 exports.getPostById = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -27,7 +26,7 @@ exports.getPostById = async (req, res) => {
   }
 };
 
-// Update a post by id
+
 exports.updatePostById = async (req, res) => {
   try {
     const { content } = req.body;
@@ -46,20 +45,6 @@ exports.updatePostById = async (req, res) => {
   }
 };
 
-// Delete a post by id
-// exports.deletePostById = async (req, res) => {
-//   try {
-//     const post = await Post.findById(req.params.id);
-//     if (!post) {
-//       return res.status(404).json({ msg: "Post not found" });
-//     }
-//     await post.remove();
-//     res.json({ msg: "Post removed" });
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).send("Server Error");
-//   }
-// };
 
 exports.deletePostById = async (req, res) => {
      try {
@@ -75,7 +60,7 @@ exports.deletePostById = async (req, res) => {
      }
 };
 
-// Increment the like count of a post by id
+
 exports.likePostById = async (req, res) => {
   try {
     const post = await Post.findByIdAndUpdate(
@@ -93,7 +78,7 @@ exports.likePostById = async (req, res) => {
   }
 };
 
-// Decrement the like count of a post by id
+
 exports.unlikePostById = async (req, res) => {
   try {
     const post = await Post.findByIdAndUpdate(
@@ -136,5 +121,14 @@ exports.getTopLikedPosts = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+
+exports.getAllPosts = async (req, res) => {
+  try {
+    const users = await Post.find();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };

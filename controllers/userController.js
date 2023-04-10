@@ -1,6 +1,5 @@
 const User = require('../models/user');
 
-// Create a new user
 exports.createUser = async (req, res) => {
      try {
           const user = new User(req.body);
@@ -11,7 +10,16 @@ exports.createUser = async (req, res) => {
      }
 };
 
-// Get a user by id
+
+exports.getAllUsers = async (req, res) => {
+     try {
+          const users = await User.find();
+          res.json(users);
+     } catch (error) {
+          res.status(500).json({ message: error.message });
+     }
+};
+
 exports.getUserById = async (req, res) => {
      try {
           const user = await User.findById(req.params.id);
@@ -22,7 +30,6 @@ exports.getUserById = async (req, res) => {
      }
 };
 
-// Update a user by id
 exports.updateUserById = async (req, res) => {
      try {
           const user = await User.findByIdAndUpdate(req.params.id, req.body, {
@@ -36,7 +43,6 @@ exports.updateUserById = async (req, res) => {
      }
 };
 
-// Delete a user by id
 exports.deleteUserById = async (req, res) => {
      try {
           const user = await User.findByIdAndDelete(req.params.id);
@@ -47,7 +53,6 @@ exports.deleteUserById = async (req, res) => {
      }
 };
 
-// Get the total number of users
 exports.getTotalNumberOfUsers = async (req, res) => {
      try {
           const count = await User.countDocuments();
@@ -57,7 +62,6 @@ exports.getTotalNumberOfUsers = async (req, res) => {
      }
 };
 
-// Get the top 5 most active users based on the number of posts
 exports.getTopActiveUsers = async (req, res) => {
      try {
           const topUsers = await User.aggregate([

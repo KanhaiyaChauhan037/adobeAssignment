@@ -13,7 +13,6 @@ const userSchema = new mongoose.Schema({
           unique: true,
           validate: {
                validator: (value) => {
-                    // Check if the value is a valid email format
                     return /\S+@\S+\.\S+/.test(value);
                },
                message: 'Invalid email format',

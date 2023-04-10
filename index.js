@@ -25,11 +25,9 @@ mongoose.connect(process.env.MONGO_URL, {
 });
 
 
-// set up routes
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 
-// start the server
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {
